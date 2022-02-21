@@ -1,0 +1,28 @@
+{
+    "name": "@plcmp/pl-icon-button",
+    "version": "0.0.1",
+    "description": "Simple icon button component.",
+    "main": "pl-icon-button.js",
+    "repository": {
+        "url": "https://github.com/plcmp/pl-icon-button.git"
+    },
+    "license": "MIT",
+    "type": "module",
+    "author": {
+        "name": "Azat Yamalov",
+        "email": "yamalov.azat@live.com"
+    },
+    "contributors": [
+        {
+            "name": "Dmitry Boikov",
+            "email": "boikovdv@gmail.com"
+        },
+        {
+            "name": "Andrey Maksimov",
+            "email": "andrmaxmail@gmail.com"
+        }
+    ],
+    "dependencies": {
+        "polylib": "^1.0.0"
+    }
+}
