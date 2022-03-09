@@ -29,6 +29,7 @@ class PlIconButton extends PlElement {
                 user-select: none;
                 cursor: pointer;
                 outline: none;
+                flex-shrink: 0;
                 transition: background .3s ease-in-out;
             }
 
