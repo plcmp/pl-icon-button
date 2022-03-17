@@ -8,7 +8,7 @@ class PlIconButton extends PlElement {
             size: { type: Number, value: '16' },
             variant: { type: String, reflectToAttribute: true, value: 'secondary' },
             icon: { type: String },
-            disabled: { type: Boolean, reflectToAttribute: true },
+            disabled: { type: Boolean, reflectToAttribute: true, observer: 'disabledObserver' },
             tabindex: { type: String, value: '0', reflectToAttribute: true },
             hidden: { type: Boolean, reflectToAttribute: true },
             negative: { type: Boolean, reflectToAttribute: true }
@@ -47,29 +47,30 @@ class PlIconButton extends PlElement {
                 background: var(--primary-darkest);
             }
 
-            /* negative */
-            :host([negative]) {
+            /* primary-negative */
+            :host([variant=primary][negative]) {
                 --primary-base: var(--negative-base);
-                --primary-light: var(--negative-light);
-                --primary-lightest: var(--negative-lightest);
                 --primary-dark: var(--negative-dark);
                 --primary-darkest: var(--negative-darkest);
             }
-        
+
             /* secondary */
             :host([variant=secondary]) {
                 background: var(--primary-lightest);
                 color: var(--primary-base);
+                border: 1px solid var(--primary-light);
             }
 
             :host([variant=secondary]:hover),:host([variant=secondary]:focus) {
                 background: var(--primary-light);
                 color: var(--primary-dark);
+                border: 1px solid var(--primary-light);
             }
 
             :host([variant=secondary]:active) {
-                background: var(--primary-base);
+                background: var(--primary-light);
                 color: var(--primary-darkest);
+                border: 1px solid var(--primary-base);
             }
 
             /* ghost */
@@ -80,17 +81,16 @@ class PlIconButton extends PlElement {
             }
 
             :host([variant=ghost]:hover),:host([variant=ghost]:focus) {
-                border: 1px solid var(--primary-dark);
-                color: var(--primary-dark);
+                border: 1px solid var(--primary-base);
+                color: var(--primary-base);
                 background: var(--primary-lightest);
             }
 
             :host([variant=ghost]:active) {
                 background: var(--primary-light);
-                color: var(--primary-darkest);
-                border: 1px solid var(--primary-darkest);
+                color: var(--primary-dark);
+                border: 1px solid var(--primary-dark);
             }
-
 
             /* link */
             :host([variant=link]) {
@@ -99,13 +99,22 @@ class PlIconButton extends PlElement {
             }
 
             :host([variant=link]:hover),:host([variant=link]:focus) {
-                background: var(--primary-lightest);
+                background: transparent;
                 color: var(--primary-dark);
             }
 
             :host([variant=link]:active) {
-                background: var(--primary-light);
+                background: transparent;
                 color:  var(--primary-darkest);
+            }
+
+            /* negative */
+            :host([negative]) {
+                --primary-base: var(--negative-base);
+                --primary-light: var(--negative-light);
+                --primary-lightest: var(--negative-lightest);
+                --primary-dark: var(--negative-dark);
+                --primary-darkest: var(--negative-darkest);
             }
 
             :host([disabled]) {
@@ -117,11 +126,21 @@ class PlIconButton extends PlElement {
             }
 		`;
     }
+
     static get template() {
         return html`
             <pl-icon size="[[size]]" iconset="[[iconset]]" icon="[[icon]]"></pl-icon>
         `;
     }
+
+    disabledObserver(disabled) {
+        if (disabled) {
+            this.tabIndex = -1;
+        } else {
+            this.tabIndex = 0;
+        }
+    }
+
 }
 
 customElements.define('pl-icon-button', PlIconButton);
