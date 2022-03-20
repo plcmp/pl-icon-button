@@ -21,11 +21,11 @@ class PlIconButton extends PlElement {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 32px;
-                height: 32px;
+                width: var(--base-size-md);
+                height: var(--base-size-md);;
                 box-sizing: border-box;
-                border-radius: 4px;
-                color: #FFFFFF;
+                border-radius: var(--border-radius);
+                color: var(--primary-lightest);
                 user-select: none;
                 cursor: pointer;
                 outline: none;
