@@ -1,6 +1,6 @@
 {
     "name": "@plcmp/pl-icon-button",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Simple icon button component.",
     "main": "pl-icon-button.js",
     "repository": {
