@@ -33,6 +33,10 @@ class PlIconButton extends PlElement {
                 transition: background .3s ease-in-out;
             }
 
+            :host([hidden]) {
+                display: none;
+            }
+
             /* primary */
             :host([variant=primary]) {
                 background: var(--primary-base);
@@ -101,10 +105,12 @@ class PlIconButton extends PlElement {
             :host([variant=link]:hover),:host([variant=link]:focus) {
                 background: transparent;
                 color: var(--primary-dark);
+                filter: drop-shadow(0px 2px 1px rgba(51, 113, 109, 0.4));
             }
 
             :host([variant=link]:active) {
                 background: transparent;
+                filter: none;
                 color:  var(--primary-darkest);
             }
 
@@ -117,9 +123,33 @@ class PlIconButton extends PlElement {
                 --primary-darkest: var(--negative-darkest);
             }
 
-            :host([disabled]) {
+            :host([disabled][variant="primary"]) {
                 background: var(--grey-light);
                 border: none;
+                color: var(--grey-dark);
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+
+            :host([disabled][variant="secondary"]) {
+                border: 1px solid var(--grey-light);
+                background: var(--grey-lightest);
+                color: var(--grey-dark);
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+
+            :host([disabled][variant="ghost"]) {
+                border: 1px solid var(--grey-light);
+                background: transparent;
+                color: var(--grey-dark);
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+
+            :host([disabled][variant="link"]) {
+                border: none
+                background: treansparent;
                 color: var(--grey-dark);
                 cursor: not-allowed;
                 pointer-events: none;
