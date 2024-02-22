@@ -15,12 +15,23 @@ class PlIconButton extends PlElement {
 
     static css = css`
         :host {
-            outline:none;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            width: var(--pl-base-size);
+            height: var(--pl-base-size);
+            background: var(--pl-primary-base);
+            color: var(--pl-background-color);
+            border: 1px solid var(--pl-primary-base);
+            border-radius: var(--pl-border-radius);
+            font: var(--pl-text-font);
+            flex-shrink: 0;
+            overflow: hidden;
+            outline: none;
             user-select: none;
-            --pl-icon-button-background: var(--primary-base);
-            --pl-icon-button-color: var(--primary-lightest);
-            --pl-icon-button-border: 1px solid var(--primary-base);
+            cursor: pointer;
+            transition: background .3s ease-in-out, border .3s ease-in-out, color .3s ease-in-out;;
         }
 
         :host([hidden]) {
@@ -29,140 +40,143 @@ class PlIconButton extends PlElement {
 
         :host([disabled]) {
             cursor: not-allowed;
-            --pl-icon-button-color: var(--grey-dark);
+            color: var(--pl-grey-dark);
         }
 
-        :host([disabled]) .wrapper{
-            pointer-events: none;
+        :host([loading]){
+            cursor: wait;
         }
 
-        /* negative */
-        :host([negative]) {
-            --primary-base: var(--negative-base);
-            --primary-light: var(--negative-light);
-            --primary-lightest: var(--negative-lightest);
-            --primary-dark: var(--negative-dark);
-            --primary-darkest: var(--negative-darkest);
+        :host([variant=primary]:hover:not([loading],[disabled])),
+        :host([variant=primary]:focus-visible:not([loading],[disabled])){
+            background: var(--pl-primary-dark);
+            border: 1px solid var(--pl-primary-darkest);
         }
 
-        :host .wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: var(--base-size-md);
-            height: var(--base-size-md);
-            box-sizing: border-box;
-            border-radius: var(--border-radius);
-            border: var(--pl-icon-button-border);
-            cursor: pointer;
-            background: var(--pl-icon-button-background);
-            color: var(--pl-icon-button-color);
-            transition: background .3s ease-in-out;
-        }
-
-        :host([variant=primary]) .wrapper:hover,
-        :host([variant=primary]) .wrapper:focus{
-            --pl-icon-button-background: var(--primary-dark);
-        }
-
-        :host([variant=primary]) .wrapper:active{
-            --pl-icon-button-background: var(--primary-darkest);
+        :host([variant=primary]:active:not([loading],[disabled])){
+            background: var(--pl-primary-darkest);
+            border: 1px solid var(--pl-primary-darkest);
         }
         
-        :host([variant=secondary]) .wrapper{
-            --pl-icon-button-background: var(--primary-lightest);
-            --pl-icon-button-color: var(--primary-base);
-            --pl-icon-button-border: 1px solid var(--primary-light);
+        :host([variant=secondary]){
+            background: var(--pl-primary-lightest);
+            color: var(--pl-primary-base);
+            border: 1px solid var(--pl-primary-light);
         }
 
-        :host([variant=secondary]) .wrapper:hover,
-        :host([variant=secondary]) .wrapper:focus{
-            --pl-icon-button-background: var(--primary-light);
-            --pl-icon-button-color: var(--primary-dark);
-            --pl-icon-button-border: 1px solid var(--primary-light);
+        :host([variant=secondary]:hover:not([loading],[disabled])),
+        :host([variant=secondary]:focus-visible:not([loading],[disabled])){
+            background: var(--pl-primary-light);
+            color: var(--pl-primary-dark);
+            border: 1px solid var(--pl-primary-light);
         }
 
-        :host([variant=secondary]) .wrapper:active{
-            --pl-icon-button-background: var(--primary-light);
-            --pl-icon-button-color: var(--primary-darkest);
-            --pl-icon-button-border: 1px solid var(--primary-base);
+        :host([variant=secondary]:active:not([loading],[disabled])){
+            background: var(--pl-primary-light);
+            color: var(--pl-primary-darkest);
+            border: 1px solid var(--pl-primary-darkest);
         }
 
         /* ghost */
-        :host([variant=ghost]) .wrapper{
-            --pl-icon-button-background: transparent;
-            --pl-icon-button-color: var(--primary-base);
-            --pl-icon-button-border: 1px solid var(--primary-base);
+        :host([variant=ghost]){
+            background: transparent;
+            color: var(--pl-primary-base);
+            border: 1px solid var(--pl-primary-base);
         }
 
-        :host([variant=ghost]) .wrapper:hover,
-        :host([variant=ghost]) .wrapper:focus{
-            --pl-icon-button-background: var(--primary-light);
-            --pl-icon-button-color: var(--primary-dark);
-            --pl-icon-button-border: 1px solid var(--primary-light);
+        :host([variant=ghost]:hover:not([loading],[disabled])),
+        :host([variant=ghost]:focus-visible:not([loading],[disabled])){
+            background: var(--pl-primary-light);
+            color: var(--pl-primary-dark);
+            border: 1px solid var(--pl-primary-light);
         }
 
-        :host([variant=ghost]) .wrapper:active{
-            --pl-icon-button-background: var(--primary-light);
-            --pl-icon-button-color: var(--primary-dark);
-            --pl-icon-button-border: 1px solid var(--primary-dark);
+        :host([variant=ghost]:active:not([loading],[disabled])){
+            background: var(--pl-primary-light);
+            color: var(--pl-primary-dark);
+            border: 1px solid var(--pl-primary-dark);
         }
 
         /* link */
         :host([variant=link]) {
-            --pl-icon-button-background: transparent;
-            --pl-icon-button-color: var(--primary-base);
-            --pl-icon-button-border: 1px solid transparent;
+            background: transparent;
+            color: var(--pl-primary-base);
+            border: 1px solid transparent;
         }
 
-        :host([variant=link]) .wrapper:hover,:host([variant=link]) .wrapper:focus{
-            --pl-icon-button-background: transparent;
-            --pl-icon-button-color: var(--primary-dark);
-            transition: none;
+        :host([variant=link]:hover:not([loading],[disabled])),:host([variant=link]:focus-visible:not([loading],[disabled])){
+            background: transparent;
+            color: var(--pl-primary-dark);
+            text-decoration: underline;
+        }
+
+        :host([variant=link]:hover:not([loading],[disabled])) ::slotted(*),
+        :host([variant=link]:focus-visible:not([loading],[disabled])) ::slotted(*){
             filter: drop-shadow(0px 2px 1px rgba(51, 113, 109, 0.4));
         }
 
-        :host([variant=link]) .wrapper:active{
-            --pl-icon-button-background: transparent;
-            --pl-icon-button-color:  var(--primary-darkest);
+        :host([variant=link]:active:not([loading],[disabled])){
+            background: transparent;
+            color:  var(--pl-primary-darkest);
+            text-decoration: underline;
         }
 
-        :host([variant="primary"][disabled]) .wrapper, :host([variant="secondary"][disabled]) .wrapper{
-            --pl-icon-button-background: var(--grey-light);
-            --pl-icon-button-border: 1px solid var(--grey-light);
-            --pl-icon-button-color: var(--grey-dark);
+        :host([variant=link]:active:not([loading],[disabled])) ::slotted(*){
+            filter:none;
         }
 
-        :host([disabled][variant="ghost"]) .wrapper{
-            --pl-icon-button-border: 1px solid var(--grey-light);
-            --pl-icon-button-color: var(--grey-dark);
+        :host([variant="primary"][disabled]), :host([variant="secondary"][disabled]){
+            background: var(--pl-grey-light);
+            border: 1px solid var(--pl-grey-light);
+            color: var(--pl-grey-dark);
         }
 
-        :host([disabled][variant="link"]) .wrapper{
-            --pl-icon-button-color: var(--grey-dark);
+        :host([disabled][variant="ghost"]){
+            background: transparent;
+            border: 1px solid var(--pl-grey-light);
+            color: var(--pl-grey-dark);
+        }
+
+        :host([disabled][variant="link"]){
+            background: transparent;
+            color: var(--pl-grey-dark);
+            text-decoration: none;
+        }
+
+        :host([disabled][variant=link]) ::slotted(*){
+            filter:none;
+        }
+
+        :host([negative]) {
+            --pl-primary-base: var(--pl-negative-base);
+            --pl-primary-light: var(--pl-negative-light);
+            --pl-primary-lightest: var(--pl-negative-lightest);
+            --pl-primary-dark: var(--pl-negative-dark);
+            --pl-primary-darkest: var(--pl-negative-darkest);
         }
     `;
 
     static template = html`
-        <div class="wrapper">
-            <pl-icon size="[[size]]" iconset="[[iconset]]" icon="[[icon]]"></pl-icon>
-        </div>
+        <pl-icon size="[[size]]" iconset="[[iconset]]" icon="[[icon]]"></pl-icon>
     `;
 
     constructor() {
         super();
         this.addEventListener('click', (e) => {
-            if(this.disabled) {
+            if (this.disabled || this.loading) {
                 e.stopPropagation();
             }
-        }, { capture: true })
+        }, { capture: true });
+        
+        this.tabIndex = this.tabIndex != -1 ? this.tabIndex : 0;
     }
 
     disabledObserver(disabled) {
         if (disabled) {
+            this.lastTabIndex = this.tabIndex;
             this.tabIndex = -1;
         } else {
-            this.tabIndex = 0;
+            this.tabIndex = this.lastTabIndex;
         }
     }
 }
