@@ -10,7 +10,9 @@ class PlIconButton extends PlElement {
         disabled: { type: Boolean, reflectToAttribute: true, observer: 'disabledObserver' },
         tabindex: { type: String, value: '0', reflectToAttribute: true },
         hidden: { type: Boolean, reflectToAttribute: true },
-        negative: { type: Boolean, reflectToAttribute: true }
+        negative: { type: Boolean, reflectToAttribute: true },
+        loading: { type: Boolean, reflectToAttribute: true},
+        animated: { type: Boolean }
     }
 
     static css = css`
@@ -157,7 +159,7 @@ class PlIconButton extends PlElement {
     `;
 
     static template = html`
-        <pl-icon size="[[size]]" iconset="[[iconset]]" icon="[[icon]]"></pl-icon>
+        <pl-icon size="[[size]]" iconset="[[iconset]]" icon="[[icon]]" animated="[[animated]]"></pl-icon>
     `;
 
     constructor() {
